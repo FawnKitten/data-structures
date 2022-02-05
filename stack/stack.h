@@ -1,20 +1,19 @@
-// stack.h
+
 #ifndef STACK_H
 #define STACK_H
 
-class Stack { 
-    int* end; 
-    int* begin; 
-    // also is the pointer to the array that stores the stack  
+#define BP(n) printf("*** bp %d\n", n)
 
-public:
-    Stack();  
-    Stack(const Stack& src); 
-    void push(int val); 
-    void pop(); 
+typedef struct Stack_t* Stack;
 
-    int top() {return *end;}
-    int bottom(){return *begin;} 
-};
+Stack stack_create();
+void stack_destroy(Stack stack);
 
-#endif // STACK_H
+int stack_pop(Stack stack);
+int stack_peek(Stack stack);
+void stack_push(Stack stack, int value);
+
+int stack_size(Stack stack);
+void stack_dump(Stack stack);
+
+#endif /* STACK_H */
