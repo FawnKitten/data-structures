@@ -1,5 +1,6 @@
 #include "linked_list.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 typedef struct Node {
     int value;
@@ -37,6 +38,11 @@ void list_destroy(Linked_list* list) {
 /* insert `value` at the end of the list */
 void list_insert_end(Linked_list list, int value) {
     Node* head_copy = list->head;
+    if (!head_copy) { /* edge case, if there are no elements
+                         make head an element */
+        list->head = node_create(value);
+        return;
+    }
     while (head_copy->next)
         head_copy = head_copy->next;
     Node* node = node_create(value);
@@ -61,8 +67,17 @@ void list_insert_at(Linked_list list, int position, int value) {
 
 /* removes the last element of the list */
 void list_delete_end(Linked_list list) {
+    /* TODO: fix this code */
     Node* head_copy = list->head;
-    while(head_copy->next) head_copy = head_copy->next;
+    if (!head_copy) {
+        return;
+    } else if (!head_copy->next) {
+        free(head_copy);
+        head_copy = NULL;
+        return;
+    }
+    while (head_copy->next->next)
+        head_copy = head_copy->next;
     free(head_copy->next);
     head_copy->next = NULL;
 }
@@ -102,3 +117,18 @@ void list_set_value_at(Linked_list list, int position, int value) {
         else             head_copy = head_copy->next;
      head_copy->value = value;
 }
+
+void list_print(Linked_list list) {
+    Node* head_copy = list->head;
+    printf("{ ");
+    if (!head_copy) {
+        printf("}");
+        return;
+    }
+    while (head_copy) {
+        printf("%d ", head_copy->value);
+        head_copy = head_copy->next;
+    }
+    printf("}");
+}
+

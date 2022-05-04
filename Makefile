@@ -2,13 +2,15 @@
 CC=gcc
 CFLAGS=--std=c11 -Wall -Wextra -Wpedantic
 
-OBJS=linked_list.o stack.o
+SRC=$(shell find . -name \*.c)
+OBJ=$(SRC:.c=.o)
 
-main: main.c $(OBJS)
+main: $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
+	@echo
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $<
+$(OBJ): $(SRC)
+	$(CC) $(CFLAGS) -c $^
 
 clean:
 	rm -rf main *.o

@@ -18,4 +18,7 @@ void list_delete_at(Linked_list list, int position);
 int list_get_value_at(Linked_list list, int position);
 void list_set_value_at(Linked_list list, int position, int value);
 
+/* etc. */
+void list_print(Linked_list list);
+
 #endif
